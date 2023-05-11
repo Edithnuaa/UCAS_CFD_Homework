@@ -1,10 +1,10 @@
 module Shu_WENO
     implicit none
     save
-    integer, parameter::cells = 2000
+    integer, parameter::cells = 200
     real, dimension(3,cells+1)::u                                                  ! 守恒变量
     real, dimension(3, cells+1)::h_flux, h_flux_plus, h_flux_minus
-    real, parameter::u1 = 2.629, rho1 = 3.857, p1 = 10.333, a_coffe=0.2, omega_coffe=5, u2 = 0, p2 = 1 ! Shu-Osher激波管问题初值
+    real, parameter::u1 = 2.629, rho1 = 3.857, p1 = 10.333, a_coffe=0.3, omega_coffe=40, u2 = 0, p2 = 1 ! Shu-Osher激波管问题初值
     real, dimension(cells+1)::vel, rho, p, energy, c                               ! 一个时间点上各网格点上的速度、密度、压力、能量、声速
     real, dimension(cells+1)::x                                                    ! 空间离散网格点的物理位置
     real, dimension(3, cells+1)::fplus, fminus                                     ! 使用FVS方法进行分裂时，f(U)被分裂成f+和f-，fplus代表f+，fminus代表f-
@@ -12,7 +12,7 @@ module Shu_WENO
     real, parameter::gama=1.4                                                  ! 空气比热比
     real, parameter::delta_x = 10.0/cells                                       ! 网格点之间的间距
     real, parameter::delta_t = 0.0001                                           ! 三阶Runge-Kutta法使用的时间步长
-    real, parameter::time = 1.8                                               ! 仿真时间，达到该时间点时仿真结束
+    real, parameter::time = 0.1                                                ! 仿真时间，达到该时间点时仿真结束
     contains
 
     subroutine init()
